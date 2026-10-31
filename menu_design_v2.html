@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><title>L4D2 菜单 v2 设计稿</title></head><body>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0A0B0E;font-family:"Microsoft YaHei","Segoe UI",sans-serif;
+     color:#E8E9EF;padding:28px 0 60px;display:flex;flex-direction:column;align-items:center;gap:34px}
+.doc{width:960px;color:#9A9DAC;font-size:13px;line-height:1.85}
+.doc h1{color:#E8E9EF;font-size:19px;font-weight:600;margin-bottom:6px}
+.doc h1 span{color:#825CFF}
+.doc b{color:#C3C5D0;font-weight:600}
+.doc .k{color:#825CFF}
+.doc ul{margin:6px 0 0 18px}
+.framewrap{width:960px}
+.framelabel{font-size:12px;color:#6E7180;margin-bottom:8px;letter-spacing:.5px}
+.win{width:900px;height:688px;background:#0F1014;border-radius:12px;display:flex;
+     box-shadow:0 24px 60px rgba(0,0,0,.55);overflow:hidden}
+.nav{width:172px;background:#14151C;border-right:1px solid #24262F;position:relative;flex:none}
+.logo{position:absolute;left:18px;top:20px;display:flex;align-items:center;gap:12px}
+.logo .badge{width:36px;height:36px;border-radius:10px;background:#825CFF;color:#fff;
+             font-size:15px;display:flex;align-items:center;justify-content:center;font-weight:600}
+.logo .nm{font-size:16px;font-weight:600;line-height:1.15}
+.logo .sub{font-size:11px;color:#565865;letter-spacing:1px}
+.navlist{position:absolute;left:12px;top:82px;width:148px}
+.navitem{height:44px;display:flex;align-items:center;gap:12px;border-radius:9px;margin-bottom:3px;
+         padding-left:14px;position:relative}
+.navitem.on{background:#1F212C}
+.navitem.on:before{content:"";position:absolute;left:0;top:11px;bottom:11px;width:3px;
+                   border-radius:2px;background:#825CFF}
+.navitem .ic{width:28px;height:28px;border-radius:8px;background:#21222C;color:#8C8F9E;
+             display:flex;align-items:center;justify-content:center;font-size:13px}
+.navitem.on .ic{background:#825CFF;color:#fff}
+.navitem .tx{font-size:16px;color:#7A7D8C}
+.navitem.on .tx{color:#E8E9EF;font-weight:600}
+.body{position:relative;width:728px;flex:none}
+.head{position:absolute;left:26px;top:24px;width:676px}
+.head .bar{position:absolute;left:0;top:2px;width:3px;height:19px;border-radius:2px;background:#825CFF}
+.head .tt{font-size:16px;font-weight:600;padding-left:12px;line-height:20px}
+.head .ds{font-size:13px;color:#565865;padding-left:12px;margin-top:5px}
+.head .hint{position:absolute;right:0;top:4px;display:flex;align-items:center;gap:8px;
+            font-size:12px;color:#565865}
+.kbd{border:1px solid #2C2E3A;background:#1E1F28;border-radius:5px;padding:1px 7px;font-size:11px;color:#7A7D8C}
+.cols{position:absolute;left:26px;top:92px;width:676px;display:flex;gap:14px}
+.col{width:331px;flex:none}
+.card{background:#17181F;border:1px solid #24262F;border-radius:12px;margin-bottom:14px;overflow:hidden}
+.ct{height:31px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 14px;border-bottom:1px solid #24262F;font-size:13px;color:#7A7D8C}
+.ct .cnt{color:#565865}
+.rows{padding:7px 14px 13px}
+.row{height:34px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.row .lb{font-size:16px;color:#C3C5D0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sw{width:38px;height:20px;border-radius:10px;background:#30323F;position:relative;flex:none}
+.sw.on{background:#825CFF}
+.sw i{position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:#F5F6FA}
+.sw.on i{left:21px}
+.sliderbox{display:flex;align-items:center;gap:8px;flex:none}
+.track{width:123px;height:4px;border-radius:2px;background:#2A2C37;position:relative}
+.track .fill{position:absolute;left:0;top:0;height:4px;border-radius:2px;background:#825CFF}
+.track .knob{position:absolute;top:-5px;width:14px;height:14px;border-radius:50%;background:#825CFF;
+             border:2px solid #17181F}
+.val{font-size:12.5px;color:#7A7D8C;min-width:26px;text-align:right}
+.unit{font-size:11px;color:#565865;min-width:14px}
+.segs{display:flex;gap:2px;background:#1E1F28;border-radius:9px;padding:2px;flex:none}
+.seg{font-size:16px;color:#7A7D8C;padding:4px 11px;border-radius:7px}
+.seg.on{background:#825CFF;color:#fff}
+.ckey{display:flex;align-items:center;justify-content:center;font-size:13px;color:#7A7D8C;
+      background:#1E1F28;border:1px solid #2C2E3A;border-radius:8px;
+      width:150px;height:30px;flex:none}
+.swatch{width:18px;height:18px;border-radius:6px;border:1px solid rgba(0,0,0,.45);flex:none}
+.hex{font-size:12px;color:#565865;margin-right:10px}
+.btn{border-radius:8px;font-size:13.5px;height:32px;display:flex;align-items:center;
+     justify-content:center;flex:none}
+.btn.primary{background:#6C4ADC;color:#fff}
+.btn.outline{border:1px solid #2C2E3A;color:#7A7D8C}
+.btn.ghost{border:1px solid #2C2E3A;color:#7A7D8C}
+.btn.danger{background:#3A1C20;border:1px solid #5C2E32;color:#C8989A}
+.btnrow{display:flex;gap:8px;margin:3px 0}
+</style>
+<div class="doc">
+  <h1>L4D2 内部菜单 <span>v2</span> 设计稿</h1>
+  <div>窗口 <b>900 × 688</b>｜导航 <b>172</b>｜正文 <b>676</b>（两列各 <b>331</b>）｜页头 <b>92</b>｜行高 <b>34</b>+间距 2｜<b>无页脚状态栏</b></div>
+  <div>字重：正文 <b>微软雅黑 Bold 16px</b>，说明/卡片标题 <b>13px 常规</b>，页标题 <b>16px 粗体 + 左侧紫色竖条</b>。渲染端只加载 <b>16 / 13</b> 两档字号（每多一档就多一份中文字形图集），本稿文字尺寸已按这两档标注。</div>
+  <div style="margin-top:10px"><b>结构变化</b></div>
+  <ul>
+    <li>取消「页 → 子标签 → 卡片」三级，改为 <span class="k">页 → 两列卡片</span>：一屏看完，不用点两次才到目标开关。</li>
+    <li>取消右侧 160px 常驻栏与底部状态栏：配置/界面开关进「系统」页——正文从 408px 扩到 676px，纵向多出 46px。</li>
+    <li>删掉重复项：「过检测」子页（抖动重复）、视觉·其他空壳页、颜色·操作空壳页、导航底部注入按钮。</li>
+    <li>删掉「隐藏调试控制台」：DLL 内从未调用 AllocConsole，本来就没有控制台可隐藏，开关是空功能。</li>
+    <li>删掉全部运行时状态小字：底部状态行、导航底部进程状态、瞄准页整张状态卡——状态只进日志，不占界面一分像素。</li>
+    <li>删掉卡片内全部说明小字（如「按住空格自动起跳，带随机延迟与漏跳」）：开关名与参数名本身自解释，不再堆第二行灰字。</li>
+    <li>删掉「输入接管」整卡与其模块：那是外部注入时代用鼠标事件模拟视角的层，内部自瞄直接改 <span class="k">CUserCmd</span>，用不上。</li>
+  </ul>
+</div>
+
+<div class="framewrap">
+  <div class="framelabel">页面 1 / 5 · 视觉</div>
+  <div class="win">
+    <div class="nav">
+      <div class="logo"><div class="badge">L4</div>
+        <div><div class="nm">L4D2</div><div class="sub">INTERNAL</div></div></div>
+      <div class="navlist"><div class="navitem on"><div class="ic">A</div><div class="tx">视觉</div></div><div class="navitem"><div class="ic">B</div><div class="tx">瞄准</div></div><div class="navitem"><div class="ic">C</div><div class="tx">战斗</div></div><div class="navitem"><div class="ic">D</div><div class="tx">颜色</div></div><div class="navitem"><div class="ic">E</div><div class="tx">系统</div></div></div>
+    </div>
+    <div class="body">
+      <div class="head">
+        <div class="bar"></div>
+        <div class="tt">视觉</div>
+        <div class="ds">透视绘制、目标过滤与文字参数</div>
+        <div class="hint">关闭<span class="kbd">INS</span></div>
+      </div>
+      <div class="cols"><div class="col"><div class="card"><div class="ct"><div>绘制元素</div><div class="cnt">6 / 8</div></div><div class="rows"><div class="row"><div class="lb">2D 方框</div><div class="sw on"><i></i></div></div><div class="row"><div class="lb">骨骼透视</div><div class="sw on"><i></i></div></div><div class="row"><div class="lb">血条</div><div class="sw on"><i></i></div></div><div class="row"><div class="lb">血量数值</div><div class="sw"><i></i></div></div><div class="row"><div class="lb">名称</div><div class="sw on"><i></i></div></div><div class="row"><div class="lb">距离</div><div class="sw on"><i></i></div></div><div class="row"><div class="lb">准星连线</div><div class="sw"><i></i></div></div><div class="row"><div class="lb">敌人计数</div><div class="sw on"><i></i></div></div></div></div><div class="card"><div class="ct"><div>文字</div></div><div class="rows"><div class="row"><div class="lb">名称字号</div><div class="sliderbox"><div class="track"><div class="fill" style="width:96%"></div><div class="knob" style="left:96%"></div></div><div class="val">16</div><div class="unit">px</div></div></div><div class="row"><div class="lb">距离字号</div><div class="sliderbox"><div class="track"><div class="fill" style="width:96%"></div><div class="knob" style="left:96%"></div></div><div class="val">16</div><div class="unit">px</div></div></div><div class="row"><div class="lb">血量字号</div><div class="sliderbox"><div class="track"><div class="fill" style="width:96%"></div><div class="knob" style="left:96%"></div></div><div class="val">16</div><div class="unit">px</div></div></div></div></div></div><div class="col"><div class="card"><div class="ct"><div>过滤</div><div class="cnt">1 / 3</div></div><div class="rows"><div class="row"><div class="lb">显示队友</div><div class="sw"><i></i></div></div><div class="row"><div class="lb">忽略幽灵特感</div><div class="sw"><i></i></div></div><div class="row"><div class="lb">过滤小僵尸</div><div class="sw on"><i></i></div></div></div></div><div class="card"><div class="ct"><div>方框样式</div></div><div class="rows"><div class="row"><div class="lb">外观</div><div class="segs"><div class="seg on">描边圆角</div><div class="seg">四角</div><div class="seg">实线</div></div></div><div class="row"><div class="lb">方框粗细</div><div class="sliderbox"><div class="track"><div class="fill" style="width:18%"></div><div class="knob" style="left:18%"></div></div><div class="val">1.5</div><div class="unit">px</div></div></div><div class="row"><div class="lb">角框粗细</div><div class="sliderbox"><div class="track"><div class="fill" style="width:12%"></div><div class="knob" style="left:12%"></div></div><div class="val">1.0</div><div class="unit">px</div></div></div><div class="row"><div class="lb">连线粗细</div><div class="sliderbox"><div class="track"><div class="fill" style="width:18%"></div><div class="knob" style="left:18%"></div></div><div class="val">1.5</div><div class="unit">px</div></div></div><div class="row"><div class="lb">血条宽度</div><div class="sliderbox"><div class="track"><div class="fill" style="width:48%"></div><div class="knob" style="left:48%"></div></div><div class="val">4.0</div><div class="unit">px</div></div></div><div class="row"><div class="lb">血条长度</div><div class="sliderbox"><div class="track"><div class="fill" style="width:12%"></div><div class="knob" style="left:12%"></div></div><div class="val">1.00</div><div class="unit"></div></div></div></div></div></div></div>
+    </div>
+  </div>
+</div>
+<div class="framewrap">
+  <div class="framelabel">页面 2 / 5 · 瞄准</div>
+  <div class="win">
+    <div class="nav">
+      <div class="logo"><div class="badge">L4</div>
+        <div><div class="nm">L4D2</div><div class="sub">INTERNAL</div></div></div>
+      <div class="navlist"><div class="navitem"><div class="ic">A</div><div class="tx">视觉</div></div><div class="navitem on"><div class="ic">B</div><div class="tx">瞄准</div></div><div class="navitem"><div class="ic">C</div><div class="tx">战斗</div></div><div class="navitem"><div class="ic">D</div><div class="tx">颜色</div></div><div class="navitem"><div class="ic">E</div><div class="tx">系统</div></div></div>
+    </div>
+    <div class="body">
+      <div class="head">
+        <div class="bar"></div>
+        <div class="tt">瞄准</div>
+        <div class="ds">自瞄触发、瞄准范围与静默弹道</div>
+        <div class="hint">关闭<span class="kbd">INS</span></div>
+      </div>
+      <div class="cols"><div class="col"><div class="card"><div class="ct"><div>自瞄</div></div><div class="rows"><div class="row"><div class="lb">启用自瞄</div><div class="sw"><i></i></div></div><div class="row"><div class="lb">自瞄热键</div><div class="ckey">鼠标侧键 1</div></div><div class="row"><div class="lb">自瞄范围</div><div class="sliderbox"><div class="track"><div class="fill" style="width:96%"></div><div class="knob" style="left:96%"></div></div><div class="val">8.0</div><div class="unit">度</div></div></div><div class="row"><div class="lb">瞄准部位</div><div class="segs"><div class="seg on">自动</div><div class="seg">头部</div><div class="seg">胸部</div><div class="seg">腹部</div></div></div><div class="row"><div class="lb">仅特感（含女巫）</div><div class="sw on"><i></i></div></div></div></div></div><div class="col"><div class="card"><div class="ct"><div>静默自瞄</div></div><div class="rows"><div class="row"><div class="lb">静默自瞄</div><div class="sw"><i></i></div></div><div class="row"><div class="lb">最大修正角</div><div class="sliderbox"><div class="track"><div class="fill" style="width:96%"></div><div class="knob" style="left:96%"></div></div><div class="val">30.0</div><div class="unit">度</div></div></div></div></div><div class="card"><div class="ct"><div>安全</div></div><div class="rows"><div class="row"><div class="lb">拟人化微抖动</div><div class="sw"><i></i></div></div><div class="row"><div class="lb">抖动幅度</div><div class="sliderbox"><div class="track"><div class="fill" style="width:6%"></div><div class="knob" style="left:6%"></div></div><div class="val">0.30</div><div class="unit">度</div></div></div></div></div></div></div>
+    </div>
+  </div>
+</div>
+<div class="framewrap">
+  <div class="framelabel">页面 3 / 5 · 战斗</div>
+  <div class="win">
+    <div class="nav">
+      <div class="logo"><div class="badge">L4</div>
+        <div><div class="nm">L4D2</div><div class="sub">INTERNAL</div></div></div>
+      <div class="navlist"><div class="navitem"><div class="ic">A</div><div class="tx">视觉</div></div><div class="navitem"><div class="ic">B</div><div class="tx">瞄准</div></div><div class="navitem on"><div class="ic">C</div><div class="tx">战斗</div></div><div class="navitem"><div class="ic">D</div><div class="tx">颜色</div></div><div class="navitem"><div class="ic">E</div><div class="tx">系统</div></div></div>
+    </div>
+    <div class="body">
+      <div class="head">
+        <div class="bar"></div>
+        <div class="tt">战斗</div>
+        <div class="ds">移动辅助与射击增强</div>
+        <div class="hint">关闭<span class="kbd">INS</span></div>
+      </div>
+      <div class="cols"><div class="col"><div class="card"><div class="ct"><div>移动</div></div><div class="rows"><div class="row"><div class="lb">自动连跳</div><div class="sw"><i></i></div></div></div></div><div class="card"><div class="ct"><div>弹道</div></div><div class="rows"><div class="row"><div class="lb">子弹无扩散</div><div class="sw on"><i></i></div></div></div></div></div><div class="col"><div class="card"><div class="ct"><div>连发</div></div><div class="rows"><div class="row"><div class="lb">自动连发</div><div class="sw"><i></i></div></div></div></div></div></div>
+    </div>
+  </div>
+</div>
+<div class="framewrap">
+  <div class="framelabel">页面 4 / 5 · 颜色</div>
+  <div class="win">
+    <div class="nav">
+      <div class="logo"><div class="badge">L4</div>
+        <div><div class="nm">L4D2</div><div class="sub">INTERNAL</div></div></div>
+      <div class="navlist"><div class="navitem"><div class="ic">A</div><div class="tx">视觉</div></div><div class="navitem"><div class="ic">B</div><div class="tx">瞄准</div></div><div class="navitem"><div class="ic">C</div><div class="tx">战斗</div></div><div class="navitem on"><div class="ic">D</div><div class="tx">颜色</div></div><div class="navitem"><div class="ic">E</div><div class="tx">系统</div></div></div>
+    </div>
+    <div class="body">
+      <div class="head">
+        <div class="bar"></div>
+        <div class="tt">颜色</div>
+        <div class="ds">按阵营配置绘制配色</div>
+        <div class="hint">关闭<span class="kbd">INS</span></div>
+      </div>
+      <div class="cols"><div class="col"><div class="card"><div class="ct"><div>队友（生存者）</div></div><div class="rows"><div class="row"><div class="lb">2D 方框 / 角框</div><div style="display:flex;align-items:center"><div class="hex">#00FF00</div><div class="swatch" style="background:#00FF00"></div></div></div><div class="row"><div class="lb">名称</div><div style="display:flex;align-items:center"><div class="hex">#00FF00</div><div class="swatch" style="background:#00FF00"></div></div></div><div class="row"><div class="lb">血条 / 血量</div><div style="display:flex;align-items:center"><div class="hex">#00FF00</div><div class="swatch" style="background:#00FF00"></div></div></div><div class="row"><div class="lb">距离</div><div style="display:flex;align-items:center"><div class="hex">#00FF00</div><div class="swatch" style="background:#00FF00"></div></div></div><div class="row"><div class="lb">准星连线</div><div style="display:flex;align-items:center"><div class="hex">#00FF00</div><div class="swatch" style="background:#00FF00"></div></div></div><div class="row"><div class="lb">骨骼透视</div><div style="display:flex;align-items:center"><div class="hex">#00FF00</div><div class="swatch" style="background:#00FF00"></div></div></div></div></div><div class="card"><div class="ct"><div>坦克（Tank）</div></div><div class="rows"><div class="row"><div class="lb">2D 方框 / 角框</div><div style="display:flex;align-items:center"><div class="hex">#FF8000</div><div class="swatch" style="background:#FF8000"></div></div></div><div class="row"><div class="lb">名称</div><div style="display:flex;align-items:center"><div class="hex">#FF8000</div><div class="swatch" style="background:#FF8000"></div></div></div><div class="row"><div class="lb">血条 / 血量</div><div style="display:flex;align-items:center"><div class="hex">#FF8000</div><div class="swatch" style="background:#FF8000"></div></div></div><div class="row"><div class="lb">距离</div><div style="display:flex;align-items:center"><div class="hex">#FF8000</div><div class="swatch" style="background:#FF8000"></div></div></div><div class="row"><div class="lb">准星连线</div><div style="display:flex;align-items:center"><div class="hex">#FF8000</div><div class="swatch" style="background:#FF8000"></div></div></div><div class="row"><div class="lb">骨骼透视</div><div style="display:flex;align-items:center"><div class="hex">#FF8000</div><div class="swatch" style="background:#FF8000"></div></div></div></div></div></div><div class="col"><div class="card"><div class="ct"><div>特感（Boomer、Smoker 等）</div></div><div class="rows"><div class="row"><div class="lb">2D 方框 / 角框</div><div style="display:flex;align-items:center"><div class="hex">#FF0000</div><div class="swatch" style="background:#FF0000"></div></div></div><div class="row"><div class="lb">名称</div><div style="display:flex;align-items:center"><div class="hex">#FF0000</div><div class="swatch" style="background:#FF0000"></div></div></div><div class="row"><div class="lb">血条 / 血量</div><div style="display:flex;align-items:center"><div class="hex">#FF0000</div><div class="swatch" style="background:#FF0000"></div></div></div><div class="row"><div class="lb">距离</div><div style="display:flex;align-items:center"><div class="hex">#FF0000</div><div class="swatch" style="background:#FF0000"></div></div></div><div class="row"><div class="lb">准星连线</div><div style="display:flex;align-items:center"><div class="hex">#FF0000</div><div class="swatch" style="background:#FF0000"></div></div></div><div class="row"><div class="lb">骨骼透视</div><div style="display:flex;align-items:center"><div class="hex">#FF0000</div><div class="swatch" style="background:#FF0000"></div></div></div></div></div><div class="card"><div class="ct"><div>小僵尸（Common）</div></div><div class="rows"><div class="row"><div class="lb">2D 方框 / 角框</div><div style="display:flex;align-items:center"><div class="hex">#FFD700</div><div class="swatch" style="background:#FFD700"></div></div></div><div class="row"><div class="lb">名称</div><div style="display:flex;align-items:center"><div class="hex">#FFD700</div><div class="swatch" style="background:#FFD700"></div></div></div><div class="row"><div class="lb">血条 / 血量</div><div style="display:flex;align-items:center"><div class="hex">#FFD700</div><div class="swatch" style="background:#FFD700"></div></div></div><div class="row"><div class="lb">距离</div><div style="display:flex;align-items:center"><div class="hex">#FFD700</div><div class="swatch" style="background:#FFD700"></div></div></div><div class="row"><div class="lb">准星连线</div><div style="display:flex;align-items:center"><div class="hex">#FFD700</div><div class="swatch" style="background:#FFD700"></div></div></div><div class="row"><div class="lb">骨骼透视</div><div style="display:flex;align-items:center"><div class="hex">#FFD700</div><div class="swatch" style="background:#FFD700"></div></div></div></div></div></div></div>
+    </div>
+  </div>
+</div>
+<div class="framewrap">
+  <div class="framelabel">页面 5 / 5 · 系统</div>
+  <div class="win">
+    <div class="nav">
+      <div class="logo"><div class="badge">L4</div>
+        <div><div class="nm">L4D2</div><div class="sub">INTERNAL</div></div></div>
+      <div class="navlist"><div class="navitem"><div class="ic">A</div><div class="tx">视觉</div></div><div class="navitem"><div class="ic">B</div><div class="tx">瞄准</div></div><div class="navitem"><div class="ic">C</div><div class="tx">战斗</div></div><div class="navitem"><div class="ic">D</div><div class="tx">颜色</div></div><div class="navitem on"><div class="ic">E</div><div class="tx">系统</div></div></div>
+    </div>
+    <div class="body">
+      <div class="head">
+        <div class="bar"></div>
+        <div class="tt">系统</div>
+        <div class="ds">注入控制、配置与界面开关</div>
+        <div class="hint">关闭<span class="kbd">INS</span></div>
+      </div>
+      <div class="cols"><div class="col"><div class="card"><div class="ct"><div>界面</div></div><div class="rows"><div class="row"><div class="lb">ESP 预览窗</div><div class="sw"><i></i></div></div><div class="row"><div class="lb">瞄准范围圈</div><div class="sw"><i></i></div></div></div></div><div class="card"><div class="ct"><div>卸载</div></div><div class="rows"><div class="btnrow"><div class="btn danger" style="width:150px">卸载注入</div></div></div></div></div><div class="col"><div class="card"><div class="ct"><div>配置</div></div><div class="rows"><div class="btnrow"><div class="btn primary" style="width:145px">保存配置</div></div><div class="btnrow"><div class="btn outline" style="width:145px">读取配置</div></div><div class="btnrow"><div class="btn ghost" style="width:303px">恢复默认颜色</div></div></div></div></div></div>
+    </div>
+  </div>
+</div></body></html>

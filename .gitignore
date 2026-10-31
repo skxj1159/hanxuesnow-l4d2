@@ -1,0 +1,46 @@
+# ---- 内部开发记录（仅本地保留，不入公开仓）----
+AI_WORKLOG.md
+导出_瞄准与Hitbox_20261023.md
+
+# ---- 已废弃的旧版发布包（bug 较多，不再分发）----
+寒山雪/
+
+# ---- 构建中间产物 ----
+build/
+Source/Release/
+Source/l4d2_payload/
+*.obj
+*.pdb
+*.iobj
+*.ipdb
+*.tlog
+*.lastbuildstate
+*.recipe
+*.ilk
+*.exp
+*.lib
+*.res
+*.o
+
+# ---- 日志 ----
+*.log
+
+# ---- IDE 用户配置 ----
+*.user
+.vs/
+.vscode/
+
+# ---- 临时备份 / 代码碎片 ----
+*.bak
+*.bak*
+*.disaster_backup
+*_recovered_raw.txt
+*_second_half.txt
+
+# ---- 本地工作区 ----
+.workbuddy/
+
+# ---- 系统杂项 ----
+Thumbs.db
+Desktop.ini
+.DS_Store

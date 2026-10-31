@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Features">
+      <UniqueIdentifier>{4a153553-c1ca-462b-a0e1-de8f84b0d020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{f4d2a258-c693-4d10-9555-a81119432ccb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu\Globals">
+      <UniqueIdentifier>{2f8c2486-448e-4bb9-a56e-b7e36dca32c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External">
+      <UniqueIdentifier>{67c422d0-edf2-4905-b710-26dd57d16dc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\OsImgui">
+      <UniqueIdentifier>{5cb167e7-bcba-4da5-b01c-a90ae7e8e44b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\OsImgui\Imgui">
+      <UniqueIdentifier>{b406269b-f106-4743-a552-13d22b36653c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{d24c44b3-e4fb-4625-b07a-00af51894813}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{34599bfd-1929-4671-80a6-2e446feb2492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\Memory">
+      <UniqueIdentifier>{22b818b1-8777-407d-adc3-cb4ef84a8376}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Osimgui\Imgui\imgui.cpp">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Osimgui\Imgui\imgui_demo.cpp">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Osimgui\Imgui\imgui_draw.cpp">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Osimgui\Imgui\imgui_impl_dx9.cpp">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Osimgui\Imgui\imgui_impl_dx11.cpp">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Osimgui\Imgui\imgui_impl_win32.cpp">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Osimgui\Imgui\imgui_tables.cpp">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Osimgui\Imgui\imgui_widgets.cpp">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Osimgui\OS-ImGui.cpp">
+      <Filter>External\OsImgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Osimgui\OS-ImGui_Base.cpp">
+      <Filter>External\OsImgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Osimgui\OS-ImGui_External.cpp">
+      <Filter>External\OsImgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Osimgui\OS-ImGui_Internal.cpp">
+      <Filter>External\OsImgui</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawEsp.cpp">
+      <Filter>Features</Filter>
+    </ClCompile>
+    <ClCompile Include="Globals.cpp">
+      <Filter>Menu\Globals</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="PreviewEsp.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopEntity.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="RPM.cpp">
+      <Filter>Main\Memory</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Osimgui\Imgui\imconfig.h">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Osimgui\Imgui\imgui.h">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Osimgui\Imgui\imgui_impl_dx9.h">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Osimgui\Imgui\imgui_impl_dx11.h">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Osimgui\Imgui\imgui_impl_win32.h">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Osimgui\Imgui\imgui_internal.h">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Osimgui\Imgui\imstb_rectpack.h">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Osimgui\Imgui\imstb_textedit.h">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Osimgui\Imgui\imstb_truetype.h">
+      <Filter>External\OsImgui\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Osimgui\OS-ImGui.h">
+      <Filter>External\OsImgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Osimgui\OS-ImGui_Base.h">
+      <Filter>External\OsImgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Osimgui\OS-ImGui_Exception.hpp">
+      <Filter>External\OsImgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Osimgui\OS-ImGui_External.h">
+      <Filter>External\OsImgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Osimgui\OS-ImGui_Internal.h">
+      <Filter>External\OsImgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Osimgui\OS-ImGui_Struct.h">
+      <Filter>External\OsImgui</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawEsp.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Menu\Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="PreviewEsp.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopEntity.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityStructs.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Offsets.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="RPM.h">
+      <Filter>Main\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Include.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

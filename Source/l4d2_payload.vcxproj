@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{8f3c1d92-4b7a-45e6-9a10-2c5d8e7b6f41}</ProjectGuid>
+    <RootNamespace>l4d2_payload</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;OSIMGUI_INTERNAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>l4d2_payload.map</MapFileName>
+      <MapExports>true</MapExports>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;OSIMGUI_INTERNAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>l4d2_payload.map</MapFileName>
+      <MapExports>true</MapExports>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Minhook\buffer.c" />
+    <ClCompile Include="Minhook\hde32.c" />
+    <ClCompile Include="Minhook\hde64.c" />
+    <ClCompile Include="Minhook\hook.c" />
+    <ClCompile Include="Minhook\trampoline.c" />
+    <ClCompile Include="Osimgui\Imgui\imgui.cpp" />
+    <ClCompile Include="Osimgui\Imgui\imgui_demo.cpp" />
+    <ClCompile Include="Osimgui\Imgui\imgui_draw.cpp" />
+    <ClCompile Include="Osimgui\Imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="Osimgui\Imgui\imgui_impl_dx9.cpp" />
+    <ClCompile Include="Osimgui\Imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="Osimgui\Imgui\imgui_tables.cpp" />
+    <ClCompile Include="Osimgui\Imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Osimgui\OS-ImGui.cpp" />
+    <ClCompile Include="Osimgui\OS-ImGui_Base.cpp" />
+    <ClCompile Include="Osimgui\OS-ImGui_External.cpp" />
+    <ClCompile Include="Osimgui\OS-ImGui_Internal.cpp" />
+    <ClCompile Include="BoneSystem.cpp" />
+    <ClCompile Include="Config\Config.cpp" />
+    <ClCompile Include="Config\CfgFile.cpp" />
+    <ClCompile Include="HitboxSystem.cpp" />
+    <ClCompile Include="IdentifierSystem.cpp" />
+    <ClCompile Include="SDK\Entity.cpp" />
+    <ClCompile Include="SDK\NetVars.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="DrawEsp.cpp" />
+    <ClCompile Include="EntityBounds.cpp" />
+    <ClCompile Include="EspConfig.cpp" />
+    <ClCompile Include="Features\Aimbot.cpp" />
+    <ClCompile Include="Features\Movement.cpp" />
+    <ClCompile Include="Globals.cpp" />
+    <ClCompile Include="Hooks\Hooks.cpp" />
+    <ClCompile Include="LiveEsp.cpp" />
+    <ClCompile Include="LoopEntity.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="PlayerName.cpp" />
+    <ClCompile Include="PreviewEsp.cpp" />
+    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Visibility.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Minhook\buffer.h" />
+    <ClInclude Include="Minhook\hde32.h" />
+    <ClInclude Include="Minhook\hde64.h" />
+    <ClInclude Include="Minhook\MinHook.h" />
+    <ClInclude Include="Minhook\pstdint.h" />
+    <ClInclude Include="Minhook\trampoline.h" />
+    <ClInclude Include="Osimgui\Imgui\imconfig.h" />
+    <ClInclude Include="Osimgui\Imgui\imgui.h" />
+    <ClInclude Include="Osimgui\Imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="Osimgui\Imgui\imgui_impl_dx9.h" />
+    <ClInclude Include="Osimgui\Imgui\imgui_impl_win32.h" />
+    <ClInclude Include="Osimgui\Imgui\imgui_internal.h" />
+    <ClInclude Include="Osimgui\Imgui\imstb_rectpack.h" />
+    <ClInclude Include="Osimgui\Imgui\imstb_textedit.h" />
+    <ClInclude Include="Osimgui\Imgui\imstb_truetype.h" />
+    <ClInclude Include="Osimgui\OS-ImGui.h" />
+    <ClInclude Include="Osimgui\OS-ImGui_Base.h" />
+    <ClInclude Include="Osimgui\OS-ImGui_Exception.hpp" />
+    <ClInclude Include="Osimgui\OS-ImGui_External.h" />
+    <ClInclude Include="Osimgui\OS-ImGui_Internal.h" />
+    <ClInclude Include="Osimgui\OS-ImGui_Struct.h" />
+    <ClInclude Include="BoneSystem.h" />
+    <ClInclude Include="HitboxSystem.h" />
+    <ClInclude Include="Netvar.h" />
+    <ClInclude Include="DrawEsp.h" />
+    <ClInclude Include="EntityBounds.h" />
+    <ClInclude Include="EntityStructs.h" />
+    <ClInclude Include="EspConfig.h" />
+    <ClInclude Include="EuiNeo.h" />
+    <ClInclude Include="Globals.h" />
+    <ClInclude Include="Include.h" />
+    <ClInclude Include="LiveEsp.h" />
+    <ClInclude Include="LoopEntity.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuGlyphs.h" />
+    <ClInclude Include="MenuSkin.h" />
+    <ClInclude Include="Offsets.h" />
+    <ClInclude Include="PayloadControl.h" />
+    <ClInclude Include="PlayerName.h" />
+    <ClInclude Include="PreviewEsp.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RPM.h" />
+    <ClInclude Include="Utils.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

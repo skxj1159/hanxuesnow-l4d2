@@ -1,0 +1,12 @@
+/nologo
+/c
+/O2
+/MD
+/EHsc
+/DWIN32
+/D_WINDOWS
+/DNDEBUG
+/I.
+/IOsimgui\Imgui
+/FoC:\Temp\wb_verify\zzz_test.obj
+Osimgui\Imgui\imgui_impl_win32.cpp

@@ -1,0 +1,63 @@
+// payload.rc -- 单 EXE 启动器的资源脚本
+//
+//  ① RT_RCDATA / #101  —— 内嵌的载荷 DLL
+//  ② VERSIONINFO       —— 版本信息
+//
+// ============================================================
+//  【警告】RC 资源语句的语法是   <nameID> <typeID> "file"
+// ------------------------------------------------------------
+//  name 在【前】，type 在【后】，文件名在最后。
+//  这是踩过两次坑之后确认的，别再"想当然"：
+//    ① "10 PAYLOAD_DLL"  → type=字符串"PAYLOAD_DLL"，launcher 找不到
+//    ② "10 101 file"     → name=#10 / type=#101，正好反了
+//    正确："101 10 file" → name=#101 / type=RT_RCDATA(10)，lang=#1033
+//
+//  launcher 用 FindResourceA(self, MAKEINTRESOURCE(101), RT_RCDATA) 取；
+//  参数顺序是 (name, type)，别写反。
+// ============================================================
+101 10 "payload_dll.bin"
+
+
+// ============================================================
+//  版本信息
+// ------------------------------------------------------------
+//  为什么必须有：Windows Defender 的 ML 启发式把"没有版本信息、没有
+//  公司名、体积又大的匿名 EXE"当成高风险特征 —— 正规软件极少长这样。
+//  实测这个 EXE 被判定为 Trojan:Win32/Wacatac.C!ml（ML 误报），
+//  补上版本资源能明显降低误判概率。
+//
+//  这治不了根：单 EXE 释放 DLL 再远程线程注入，行为本身就容易被判恶意。
+//  要彻底稳定，需要把这个目录加进杀软排除项（见 build/README.md）。
+//
+//  ⚠ 字符串一律用 ASCII：rc.exe 按 ANSI 读 .rc 文件，写中文会在
+//    资源里变成乱码，反而更像可疑文件。
+// ============================================================
+1 VERSIONINFO
+FILEVERSION     1,0,0,0
+PRODUCTVERSION  1,0,0,0
+FILEFLAGSMASK   0x3fL
+FILEFLAGS       0x0L
+FILEOS          0x40004L
+FILETYPE        0x1L
+FILESUBTYPE     0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName",      "Hanshanxue"
+            VALUE "FileDescription",  "Hanshanxue Utility"
+            VALUE "FileVersion",      "1.0.0.0"
+            VALUE "InternalName",     "hanxuesnow"
+            VALUE "LegalCopyright",   "Copyright (C) 2026"
+            VALUE "OriginalFilename", "hanxuesnow.exe"
+            VALUE "ProductName",      "Hanshanxue Utility"
+            VALUE "ProductVersion",   "1.0.0.0"
+            VALUE "Comments",         "For research and personal testing"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
